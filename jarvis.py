@@ -9,7 +9,7 @@ import pyttsx3
 import datetime
 # Configure environment and Gemini
 load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCYndMd4gijf6ST9R9TEMV0_6R2wOOikYs")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 if not GEMINI_API_KEY:
     print("Warning: GEMINI_API_KEY not set. LLM features will be disabled.")
 genai.configure(api_key=GEMINI_API_KEY)
