@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import speech_recognition as sr
 import pyttsx3
 import datetime
+import urllib.parse
 # Configure environment and Gemini
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
@@ -99,6 +100,27 @@ def execute_command(command):
     elif "time" in command:
         now = datetime.datetime.now().strftime("%H:%M")
         speak(f"The time is {now}")
+        return True
+
+    elif "open spotify" in command:
+        try: 
+            # search_url = "https://open.spotify.com/search/" + urllib.parse.quote(query)
+            # webbrowser.open(search_url)
+            os.startfile("spotify")
+            speak("Opening Spotify")
+            return True
+        except Exception:
+            speak("I couldn't open Spotify. Please make sure it is installed and try again.")
+            return False
+
+    elif "play" in command and "spotify" in command:
+        song = command.replace("play", "").replace("on spotify", "").strip()
+        if song:
+            speak(f"Searching for {song} on Spotify")
+            os.startfile(f"spotify:search:{song}")
+        else:
+            speak("What would you like me to play on spotify?")
+
         return True
 
     elif "shutdown" in command:
